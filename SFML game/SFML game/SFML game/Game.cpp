@@ -110,6 +110,7 @@ bool Game::update()
 					delete this->states.top();
 					this->states.pop();
 				}
+				std::cout << states.size();
 			}
 			else
 				this->window->close();
