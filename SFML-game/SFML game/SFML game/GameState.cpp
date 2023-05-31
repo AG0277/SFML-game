@@ -100,6 +100,7 @@ void GameState::initBlocks()
 			}
 		}
 	}
+	blocksAmountPerRow = this->window->getSize().x / block.at(0)->getSprite()->getGlobalBounds().width;
 }
 
 void GameState::initPlayer()
@@ -168,10 +169,9 @@ void GameState::fireBalls()
 
 std::vector<int> GameState::randomNumbers()
 {
-	int temp = this->window->getSize().x / block.at(0)->getSprite()->getGlobalBounds().width;
 	if (numberOfBlocksSpawned < 10)
 		numberOfBlocksSpawned = numberOfBlocksSpawned + 0.4;
-	std::vector<int> nums(temp);
+	std::vector<int> nums(blocksAmountPerRow);
 	std::iota(nums.begin(), nums.end(), 1);
 	std::mt19937 gen(std::random_device{}());
 	std::shuffle(nums.begin(), nums.end(), gen);

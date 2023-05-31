@@ -41,6 +41,7 @@ private:
 	float numberOfBlocksSpawned;
 	sf::Vector2i NewBallPosition;
 	std::vector<std::string> map;
+	int blocksAmountPerRow;
 	// private initlializers
 
 	void initBlocks();
