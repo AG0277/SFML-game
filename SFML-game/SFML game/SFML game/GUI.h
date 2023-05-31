@@ -13,10 +13,8 @@ private:
 	char ubuf[24];
 	char pbuf[24];
 	bool* p_open = NULL;
-	sf::Window* window;
 
 public:
-	GUI(sf::Window* window);
 	bool createButton(const char* text, float x, float y, float posx, float posy);
 	void loginmenu();
 };

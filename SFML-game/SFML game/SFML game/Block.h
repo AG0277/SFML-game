@@ -12,9 +12,10 @@ protected:
 	std::pair<int, int> pair;
 
 	int health;
+	int points;
 
-	virtual void initSprite() = 0;
-	virtual void initTexture() = 0;
+	virtual void initSprite();
+	virtual void initTexture();
 public:
 	Block() { setColor(); };
 	virtual ~Block() { };
@@ -33,8 +34,6 @@ public:
 class BlockYellow :public Block
 {
 private:
-	void initTexture();
-	void initSprite();
 	static int counter;
 public:
 	BlockYellow();
@@ -46,8 +45,6 @@ public:
 class BlockBlue :public Block
 {
 private:
-	void initTexture();
-	void initSprite();
 	static int counter;
 public:
 	BlockBlue();

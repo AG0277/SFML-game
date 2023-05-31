@@ -308,6 +308,7 @@ bool Init(sf::Window& window, const sf::Vector2f& displaySize, bool loadDefaultF
     if (loadDefaultFont) {
         // this will load default font automatically
         // No need to call AddDefaultFont
+        ImFont* fonts = io.Fonts->AddFontFromFileTTF("font/ARKANOID.ttf",30.0f);
         return UpdateFontTexture();
     }
 

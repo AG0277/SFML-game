@@ -1,19 +1,6 @@
 #include "GUI.h"
 
-GUI::GUI(sf::Window* window)
-{
-    this->window = window;
-    char test[24] = "Enter your username";
-    char test1[24] = "Enter your password";
-    for (int i = 0; i < 24; i++)
-    {
-        ubuf[i] = test[i];
-        pbuf[i] = test1[i];
-    }
-    size = 10;
 
-
-};
 void GUI::loginmenu()
 {
 
@@ -243,13 +230,18 @@ bool GUI::createButton(const char* text, float x, float y, float posx, float pos
     window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
     window_flags |= ImGuiWindowFlags_NoScrollbar;
 
+    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.054, 0.054, 0.054, 255));
     ImGui::Begin("Button", 0, window_flags);
     ImGui::SetCursorPos(buttonPos2);
-    if (ImGui::Button(text, buttonSize))
+
+    if (ImGui::Button(text,buttonSize))
     {
+        ImGui::PopStyleColor();
         ImGui::End();
         return true;
     }
+    ImGui::PopStyleColor();
     ImGui::End();
+
     return false;
 }

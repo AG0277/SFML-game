@@ -6,7 +6,6 @@
 #include <random>
 #include <numeric>
 #include "PauseGameState.h"
-#include "RayTracing.h"
 
 struct Map
 {
@@ -40,7 +39,6 @@ private:
 	sf::Texture framebackgroundtex;
 	sf::Sprite framebackground;
 	float numberOfBlocksSpawned;
-	RayTracing raytracing;
 	sf::Vector2i NewBallPosition;
 	std::vector<std::string> map;
 	// private initlializers

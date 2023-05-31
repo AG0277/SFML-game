@@ -10,6 +10,18 @@ void Block::updateHit()
 	setColor();
 }
 
+void Block::initTexture()
+{
+	if (!this->texture.loadFromFile("Textures/Grey200.png"))
+		std::cout << "ERROR::FAILED TO LOAD TEXTURE BLOCK\n";
+}
+
+void Block::initSprite()
+{
+	this->sprite.setTexture(this->texture);
+	sprite.scale(0.4f, 0.4f);
+}
+
 std::vector<float> Block::getSpritePosition()
 {
 
@@ -53,19 +65,6 @@ void Block::setColor()
 		this->sprite.setColor(sf::Color(100, 37, 100, 255));
 }
 
-/////////////////////////////////////////////////////////////////
-// Block Yellow
-
-void BlockYellow::initTexture()
-{
-	if (!this->texture.loadFromFile("Textures/Grey200.png"))
-		std::cout << "ERROR::FAILED TO LOAD TEXTURE BLOCK\n";
-}
-void BlockYellow::initSprite()
-{
-	this->sprite.setTexture(this->texture);
-	sprite.scale(0.4f, 0.4f);
-}
 
 BlockYellow::BlockYellow()
 	:Block()
@@ -76,23 +75,8 @@ BlockYellow::BlockYellow()
 	pair.second = 100;
 	pair = std::make_pair(pair.first + this->sprite.getGlobalBounds().width * counter, pair.second );
 	counter++;
-	//this->sprite.setPosition(pair.first, pair.second);
-	this->health = 100;
-
-}
-/////////////////////////////////////////////////////////////////
-// Block Blue
-void BlockBlue::initTexture()
-{
-	if (!this->texture.loadFromFile("Textures/block.png"))
-		std::cout << "ERROR::FAILED TO LOAD TEXTURE BLOCK\n";
-}
-void BlockBlue::initSprite()
-{
-	this->sprite.setTexture(this->texture);
-	sprite.scale(0.4f, 0.4f);
-	this->sprite.setColor(sf::Color::Blue);
-	//sprite.setOrigin(sprite.getTexture()->getSize().x / 2, sprite.getTexture()->getSize().y / 2);
+	this->health = 90;
+	this->points = health;
 }
 
 BlockBlue::BlockBlue()
@@ -106,5 +90,5 @@ BlockBlue::BlockBlue()
 	initSprite();
 	this->sprite.setPosition(pair.first, pair.second);
 	this->health = 30;
-
+	this->points = health;
 }

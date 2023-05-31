@@ -65,8 +65,8 @@ Map::Map()
 	random_number = 3;// distr(gen);
 	if (random_number == 3)
 	{
-		std::string temp = "               ";
-		for (int j = 0; j < 15; j++)
+		std::string temp = "         ";
+		for (int j = 0; j < 9; j++)
 			random.push_back(temp);
 
 		for (int k = 1; k < 4; k++)
@@ -168,9 +168,10 @@ void GameState::fireBalls()
 
 std::vector<int> GameState::randomNumbers()
 {
+	int temp = this->window->getSize().x / block.at(0)->getSprite()->getGlobalBounds().width;
 	if (numberOfBlocksSpawned < 10)
 		numberOfBlocksSpawned = numberOfBlocksSpawned + 0.4;
-	std::vector<int> nums(13);
+	std::vector<int> nums(temp);
 	std::iota(nums.begin(), nums.end(), 1);
 	std::mt19937 gen(std::random_device{}());
 	std::shuffle(nums.begin(), nums.end(), gen);
@@ -206,13 +207,11 @@ void GameState::setEvent(sf::Event& event)
 		}
 	if (event.type == event.MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && canModify == true)
 	{
-		raytracing.setTurnOn(true);
 		//raytracing.direction(sf::Mouse::getPosition(*this->window),currentBallPos);
 
 	}
 	if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && canModify == true)
 	{
-		raytracing.setTurnOn(false);
 		mousePos = sf::Mouse::getPosition(*this->window);
 		ball.erase(ball.begin());
 		canModify = false;
@@ -330,7 +329,7 @@ void GameState::collisionManager(const float& deltaTime)
 
 void GameState::updateGUI()
 {
-	if (this->gui->createButton("PULL BALLS", 200, 100, 300, 797))\
+	if (this->gui->createButton("PULL BALLS", 200, 100, this->window->getSize().x/2-100, this->window->getSize().y -102))
 	{
 		colisionON = false;
 		for (int i = 0; i < ball.size(); i++)
@@ -349,8 +348,6 @@ void GameState::update(const float& deltaTime, sf::Time& dt)
 	this->updatePlayerPosition();
 	this->updateBallPosition(deltaTime);
 	this->updateFiredBalls(deltaTime);
-	if (raytracing.getTurnOn() == true)
-		this->raytracing.update(sf::Mouse::getPosition(*this->window), currentBallPos);
 }
 
 void GameState::render(sf::RenderTarget* target)
@@ -367,7 +364,6 @@ void GameState::render(sf::RenderTarget* target)
 		window->draw(text);
 
 	}
-	raytracing.render(this->window);
 
 	ImGui::SFML::Render(*window);
 
