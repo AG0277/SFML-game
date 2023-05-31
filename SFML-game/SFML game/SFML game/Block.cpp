@@ -65,8 +65,6 @@ void BlockYellow::initSprite()
 {
 	this->sprite.setTexture(this->texture);
 	sprite.scale(0.4f, 0.4f);
-	//this->sprite.setColor(sf::Color::Yellow);
-	//sprite.setOrigin(sprite.getTexture()->getSize().x / 2, sprite.getTexture()->getSize().y / 2);
 }
 
 BlockYellow::BlockYellow()
@@ -79,7 +77,7 @@ BlockYellow::BlockYellow()
 	pair = std::make_pair(pair.first + this->sprite.getGlobalBounds().width * counter, pair.second );
 	counter++;
 	//this->sprite.setPosition(pair.first, pair.second);
-	this->health = 80;
+	this->health = 100;
 
 }
 /////////////////////////////////////////////////////////////////

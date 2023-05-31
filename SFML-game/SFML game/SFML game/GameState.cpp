@@ -65,12 +65,12 @@ Map::Map()
 	random_number = 3;// distr(gen);
 	if (random_number == 3)
 	{
-		std::string temp= "               ";
-			for (int j = 0; j < 15; j++)
-				random.push_back( temp);
-				
-			for (int k = 1; k < 4; k++)
-				random.at(2).at(k)='g';
+		std::string temp = "               ";
+		for (int j = 0; j < 15; j++)
+			random.push_back(temp);
+
+		for (int k = 1; k < 4; k++)
+			random.at(2).at(k) = 'g';
 	}
 
 	map.push_back(&pyramid);
@@ -84,22 +84,22 @@ int GameState::generateNumber()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distr(0, 2);
-	 return distr(gen);
+	return distr(gen);
 }
 
 void GameState::initBlocks()
 {
-		for (int j = 0; j < map.size(); j++)
+	for (int j = 0; j < map.size(); j++)
+	{
+		for (int k = 0; k < map.at(j).size(); k++)
 		{
-			for (int k = 0; k < map.at(j).size(); k++)
+			if (map.at(j).at(k) == 'g')
 			{
-				if (map.at(j).at(k) == 'g')
-				{
-					this->block.push_back(new BlockYellow);
-					this->block.at(this->block.size() -1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (k-1) + 12, this->block.at(0)->getSprite()->getGlobalBounds().height * j);
-				}
+				this->block.push_back(new BlockYellow);
+				this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (k - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height * j);
 			}
 		}
+	}
 }
 
 void GameState::initPlayer()
@@ -108,7 +108,7 @@ void GameState::initPlayer()
 }
 
 void GameState::initBall()
-{	
+{
 	currentBallPos.x = videoMode.width / 2;
 	currentBallPos.y = videoMode.height * 0.98 - 100;
 	this->ball.push_back(new Ball(videoMode, currentBallPos));
@@ -130,8 +130,8 @@ void GameState::initFont()
 	text.setFont(font);
 }
 
-GameState::GameState(sf::RenderWindow* window, sf::VideoMode videoMode,std::stack<States*>* states)
-	:States(window,videoMode,states)
+GameState::GameState(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<States*>* states)
+	:States(window, videoMode, states)
 {
 	Map map;
 	this->map = *map.map.at(map.random_number);
@@ -159,17 +159,17 @@ GameState::~GameState()
 
 void GameState::fireBalls()
 {
-		this->ball.push_back(new Ball(videoMode,currentBallPos));
-		ballsCounter++;
-		ballsPushed++;
-		this->ball.at(ballsCounter - 1)->directions(mousePos.x, mousePos.y);
+	this->ball.push_back(new Ball(videoMode, currentBallPos));
+	ballsCounter++;
+	ballsPushed++;
+	this->ball.at(ballsCounter - 1)->directions(mousePos.x, mousePos.y);
 
 }
 
 std::vector<int> GameState::randomNumbers()
 {
 	if (numberOfBlocksSpawned < 10)
-		numberOfBlocksSpawned=numberOfBlocksSpawned+0.4;
+		numberOfBlocksSpawned = numberOfBlocksSpawned + 0.4;
 	std::vector<int> nums(13);
 	std::iota(nums.begin(), nums.end(), 1);
 	std::mt19937 gen(std::random_device{}());
@@ -183,8 +183,8 @@ void GameState::addBlocks()
 	std::vector<int> temp = randomNumbers();
 	for (int i = 0; i < temp.size(); i++)
 	{
-			this->block.push_back(new BlockYellow);
-			this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (temp.at(i)-1) + 12, this->block.at(0)->getSprite()->getGlobalBounds().height);
+		this->block.push_back(new BlockYellow);
+		this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (temp.at(i) - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height);
 	}
 }
 
@@ -200,18 +200,19 @@ void GameState::changeGameBoard()
 void GameState::setEvent(sf::Event& event)
 {
 	if (event.type == sf::Event::KeyPressed)
-	if (event.key.code == sf::Keyboard::Escape)
-	{
-		this->states->push(new PauseGameState(window, videoMode, states));
-	}
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			this->states->push(new PauseGameState(window, videoMode, states));
+		}
 	if (event.type == event.MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && canModify == true)
 	{
-		sf::Mouse::getPosition(*this->window);
-	
+		raytracing.setTurnOn(true);
+		//raytracing.direction(sf::Mouse::getPosition(*this->window),currentBallPos);
 
 	}
 	if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && canModify == true)
 	{
+		raytracing.setTurnOn(false);
 		mousePos = sf::Mouse::getPosition(*this->window);
 		ball.erase(ball.begin());
 		canModify = false;
@@ -248,11 +249,11 @@ void GameState::updateBlock()
 void GameState::updateFiredBalls(const float& deltaTime)
 {
 
-	float temp = videoMode.width/20;
-	this->dt = (dt+temp) ;
+	float temp = videoMode.width / 20;
+	this->dt = (dt + temp);
 	if (dt > 100)
 	{
-		if (ballsPushed > 0 && ballsPushed < 30&& canModify==false )
+		if (ballsPushed > 0 && ballsPushed < 30 && canModify == false)
 		{
 
 			fireBalls();
@@ -266,7 +267,7 @@ void GameState::collisionManager(const float& deltaTime)
 	int counter = 0;
 	bool newPos = false;
 
-	for (auto ball:ball)
+	for (auto ball : ball)
 	{
 		bool doublecolision = false;
 		if (colisionON == true)
@@ -285,12 +286,12 @@ void GameState::collisionManager(const float& deltaTime)
 		bool changeX = false;
 		bool changeY = false;
 		bool delBall = false;
-		if (this->collision.handleBackground_BallCollisions(*ball, worldBackgroud, changeX, changeY, delBall,newPos))
+		if (this->collision.handleBackground_BallCollisions(*ball, worldBackgroud, changeX, changeY, delBall, newPos))
 		{
 			if (newPos == true)
 			{
-				this->NewBallPosition.x= (int)ball->getSprite().getPosition().x;
-				this->NewBallPosition.y = (int)ball->getSprite().getPosition().y-10;
+				this->NewBallPosition.x = (int)ball->getSprite().getPosition().x;
+				this->NewBallPosition.y = (int)ball->getSprite().getPosition().y - 10;
 
 				newPos = false;
 			}
@@ -348,6 +349,8 @@ void GameState::update(const float& deltaTime, sf::Time& dt)
 	this->updatePlayerPosition();
 	this->updateBallPosition(deltaTime);
 	this->updateFiredBalls(deltaTime);
+	if (raytracing.getTurnOn() == true)
+		this->raytracing.update(sf::Mouse::getPosition(*this->window), currentBallPos);
 }
 
 void GameState::render(sf::RenderTarget* target)
@@ -360,9 +363,9 @@ void GameState::render(sf::RenderTarget* target)
 	{
 		block->render(this->window);
 		text.setString(std::to_string(block->getHealth()));
-		text.setPosition(block->getSprite()->getGlobalBounds().left+ block->getSprite()->getGlobalBounds().width/4, block->getSprite()->getGlobalBounds().top+ block->getSprite()->getGlobalBounds().height/4);
+		text.setPosition(block->getSprite()->getGlobalBounds().left + block->getSprite()->getGlobalBounds().width / 4, block->getSprite()->getGlobalBounds().top + block->getSprite()->getGlobalBounds().height / 4);
 		window->draw(text);
-			
+
 	}
 	raytracing.render(this->window);
 

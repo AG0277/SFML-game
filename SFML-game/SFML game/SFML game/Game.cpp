@@ -5,7 +5,7 @@
 
 void Game::initWindow()
 {
-	this->videoMode = sf::VideoMode(800, 900);
+	this->videoMode = sf::VideoMode(735, 900);
 	this->window = new sf::RenderWindow(videoMode, "Bricks Breaker", sf::Style::Titlebar | sf::Style::Close);
 	this->window->setVerticalSyncEnabled(false);
 	ImGui::SFML::Init(*window);
