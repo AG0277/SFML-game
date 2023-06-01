@@ -23,6 +23,8 @@ protected:
 	sf::Texture worldBackgroundTexture;
 	sf::Sprite worldBackgroud;
 	GUI* gui;
+	int points;
+	bool* DidYouWin;
 
 public:
 	States(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<States*>* states);
@@ -31,6 +33,7 @@ public:
 	virtual void setEvent(sf::Event& event) {};
 	bool getQuit();
 	void endState() { this->quitState = true; };
+	void setWin(bool answer) { bool decision=answer; this->DidYouWin = &decision; };
 	virtual	void update(const float& deltaTime, sf::Time& dt) = 0;
 	virtual void render(sf::RenderTarget* target) = 0;
 };

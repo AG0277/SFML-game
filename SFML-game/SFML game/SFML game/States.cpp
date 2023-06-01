@@ -7,6 +7,7 @@ States::States(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<Sta
 	this->videoMode = videoMode;
 	this->quitState = false;
 	this->gui = new GUI;
+	points = 0;
 }
 
 States::~States()

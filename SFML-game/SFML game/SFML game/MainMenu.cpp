@@ -20,6 +20,7 @@ MainMenu::MainMenu(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack
 {
 	this->initBackground();
 	this->initfont();
+	this->gameTitle();
 }
 
 void MainMenu::imgui()
@@ -44,13 +45,13 @@ void MainMenu::gameTitle()
 	std::string string = "Bricks Breaker";
 	text.setString(string);
 	text.setFillColor(sf::Color::White);
-	text.setPosition(this->window->getSize().x/20, this->window->getSize().x / 5);
+	text.setPosition(this->window->getSize().x/20, this->window->getSize().x / 3.5);
 }
+
 void MainMenu::update(const float& deltaTime, sf::Time& dt)
 {
 
 	ImGui::SFML::Update(*window, dt);
-	gameTitle();
 	imgui();
 }
 

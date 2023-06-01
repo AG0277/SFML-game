@@ -26,6 +26,7 @@ public:
 	virtual sf::Sprite* getSprite() { return &(this->sprite); };
 	virtual int getHealth() { return this->health; };
 	virtual void setColor();
+	virtual int getPoints();
 
 };
 

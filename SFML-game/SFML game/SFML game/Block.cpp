@@ -65,6 +65,11 @@ void Block::setColor()
 		this->sprite.setColor(sf::Color(100, 37, 100, 255));
 }
 
+int Block::getPoints()
+{
+	return this->points;
+}
+
 
 BlockYellow::BlockYellow()
 	:Block()

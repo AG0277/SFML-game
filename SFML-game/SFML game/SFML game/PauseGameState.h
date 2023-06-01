@@ -5,8 +5,12 @@
 class PauseGameState :public States
 {
 private:
-
+	sf::Font font;
+	sf::Text text;
+	sf::Text winorlosetext;
+	void initfont();
 	void initBackground();
+	void DisplayScore();
 public:
 	PauseGameState(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<States*>* states);
 	virtual ~PauseGameState() {};

@@ -145,7 +145,7 @@ GameState::GameState(sf::RenderWindow* window, sf::VideoMode videoMode, std::sta
 	colisionON = true;
 	canModify = true;
 	numberOfBlocksSpawned = 4;
-
+	DidYouWin = nullptr;
 }
 
 GameState::~GameState()
@@ -239,7 +239,10 @@ void GameState::updateBlock()
 	for (auto* block : block)
 	{
 		if (!block->update())
+		{
+			points=block->getPoints();
 			this->block.erase(this->block.begin() + counter);
+		}
 		++counter;
 	}
 
@@ -322,6 +325,7 @@ void GameState::collisionManager(const float& deltaTime)
 	{
 		if (collision.handleBackground_BlockCollisions(*block, worldBackgroud))
 		{
+			setWin(false);
 			this->endState();
 		}
 	}
