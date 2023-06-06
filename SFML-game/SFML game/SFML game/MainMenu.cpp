@@ -25,8 +25,8 @@ MainMenu::MainMenu(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack
 
 void MainMenu::imgui()
 {
-	float x = this->window->getSize().x / 2;
-	float y = this->window->getSize().y *3/5;
+	int x = this->window->getSize().x / 2;
+	int y = this->window->getSize().y *3/5;
 	int buttonx = 350;
 	int buttony = 100;
 	if (gui->createButton("New Game", buttonx, buttony, x - buttonx / 2, y))
@@ -48,7 +48,7 @@ void MainMenu::gameTitle()
 	std::string string = "Bricks Breaker";
 	text.setString(string);
 	text.setFillColor(sf::Color::White);
-	text.setPosition(this->window->getSize().x/20, this->window->getSize().x / 3.5);
+	text.setPosition((float)this->window->getSize().x/20, (float)this->window->getSize().x / 3.5);
 }
 
 void MainMenu::update(const float& deltaTime, sf::Time& dt)

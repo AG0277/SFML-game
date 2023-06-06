@@ -23,10 +23,6 @@ void LeaderboardState::sort(std::vector<std::pair<std::string, int>>& scores, in
 
 	std::reverse(topnumbers.begin(), topnumbers.end());
 
-	//std::cout << "Top 5 Highest Numbers:" << std::endl;
-	//for (const auto& pair : topnumbers) {
-	//	std::cout << pair.first << ": " << pair.second << std::endl;
-	//}
 	this->displayOveralScore = topnumbers;
 }
 
@@ -34,7 +30,8 @@ void LeaderboardState::readScore()
 {
 	std::vector<std::pair<std::string, int>> scores;
 	std::string line;
-	std::regex pattern(R"((\w+)->(\d+))");
+	//std::regex pattern(R"((\w+)->(\d+))");
+	std::regex pattern(R"(([\w\s]+)->(\d+))");
 	std::ifstream scoreFile("Score.txt");
 	if (scoreFile.is_open())
 	{
@@ -53,30 +50,6 @@ void LeaderboardState::readScore()
 	}
 }
 
-//void LeaderboardState::readScore(std::string& nickname)
-//{
-//	std::vector<std::pair<std::string, int>> scores;
-//	std::string line;
-//	std::regex pattern(R"((\w+)->(\d+))");
-//	std::regex pattern1(nickname);
-//	std::ifstream scoreFile("Score.txt");
-//	if (scoreFile.is_open())
-//	{
-//		while (std::getline(scoreFile, line))
-//		{
-//			std::smatch match;
-//			if (std::regex_search(line, pattern1))
-//				if (std::regex_search(line, match, pattern))
-//				{
-//					std::string name = match[1].str();
-//					int number = (int)std::stof(match[2].str());
-//					scores.push_back(std::make_pair(name, number));
-//				}
-//		}
-//		sort(scores, 1);
-//		scoreFile.close();
-//	}
-//}
 
 void LeaderboardState::initfont()
 {
@@ -95,15 +68,7 @@ void LeaderboardState::initBackground()
 void LeaderboardState::leaderboardDisplay()
 {
 	int charsize = 80;
-	text.setFont(font);
-	text.setCharacterSize(charsize);
 	std::string string = "Leaderboard";
-	text.setString(string);
-	text.setFillColor(sf::Color::White);
-	text.setPosition(this->window->getSize().x * 0.18, this->window->getSize().y * 0.1);
-
-	leaderboardtext.setFont(font);
-	leaderboardtext.setCharacterSize(50);
 	std::string leaderboard;
 	std::string iToStr;
 	readScore();
@@ -112,9 +77,9 @@ void LeaderboardState::leaderboardDisplay()
 		iToStr = std::to_string(i);
 		leaderboard += (iToStr+". "+displayOveralScore.at(i-1).first + " " + std::to_string(displayOveralScore.at(i-1).second) + "\n");
 	}
-	leaderboardtext.setString(leaderboard);
-	leaderboardtext.setFillColor(sf::Color::White);
-	leaderboardtext.setPosition(this->window->getSize().x * 0.18, this->window->getSize().y * 0.1 + charsize);
+
+	text = gui->createText(string, font, charsize, this->window->getSize().y * 0.1);
+	leaderboardtext = gui->createText(leaderboard, font, charsize-30, this->window->getSize().y * 0.1 + charsize);
 }
 
 LeaderboardState::LeaderboardState(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<States*>* states) :States(window, videoMode, states)
@@ -140,7 +105,7 @@ void LeaderboardState::imgui()
 	int buttonx = 350;
 	int buttony = 100;
 
-	if (gui->createButton("Go back", buttonx, buttony, x - buttonx / 2, y + buttony * 2))
+	if (gui->createButton("Go back", buttonx, buttony, x - buttonx / 2, y +100))
 		endState();
 }
 

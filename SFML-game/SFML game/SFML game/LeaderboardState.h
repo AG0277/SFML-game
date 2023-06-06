@@ -11,7 +11,6 @@ private:
 
 	void sort(std::vector<std::pair<std::string, int>>& score, int howmanynumbers);
 	void readScore();
-	//void readScore(std::string& nickname);
 	void initfont();
 	void initBackground();
 	void leaderboardDisplay();

@@ -9,6 +9,11 @@ private:
 	sf::Font font;
 	sf::Text text;
 	sf::Text winorlosetext;
+	std::string playerInput;
+	sf::Text playerText;
+	sf::Text playerDecision;
+	unsigned int playerInputSize;
+	bool YesNoInput;
 	void initfont();
 	void initBackground();
 	void DisplayScore();

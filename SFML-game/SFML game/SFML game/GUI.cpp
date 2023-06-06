@@ -3,55 +3,56 @@
 
 void GUI::loginmenu()
 {
+    //int size = 10;
 
-    ImGuiWindowFlags window_flags = 0;
-    window_flags |= ImGuiWindowFlags_NoBackground;
-    window_flags |= ImGuiWindowFlags_NoTitleBar;
-    ImGui::Begin("##LogIn",0,window_flags);
-    int windowx = ImGui::GetWindowWidth();
-    int windowy = ImGui::GetWindowHeight();
-    ImVec2 middle(windowx / 3, windowy / 2);
+    //ImGuiWindowFlags window_flags = 0;
+    //window_flags |= ImGuiWindowFlags_NoBackground;
+    //window_flags |= ImGuiWindowFlags_NoTitleBar;
+    //ImGui::Begin("##LogIn",0,window_flags);
+    //int windowx = ImGui::GetWindowWidth();
+    //int windowy = ImGui::GetWindowHeight();
+    //ImVec2 middle(windowx / 3, windowy / 2);
 
 
 
-    // username
-    ImGui::SetCursorPos(middle);
-    ImGui::LabelText("", "username");
-    ImGui::SetCursorPosX(middle.x);
-    ImGui::PushItemWidth(20*size);
-    ImGui::SetItemAllowOverlap();
-    ImGui::InputText("##username", ubuf, IM_ARRAYSIZE(ubuf), ImGuiInputTextFlags_AutoSelectAll);
+    //// username
+    //ImGui::SetCursorPos(middle);
+    //ImGui::LabelText("", "username");
     //ImGui::SetCursorPosX(middle.x);
-    // ImGui::SetCursorPosY(middle.y+ImGui::CalcTextSize("username").y*0.8+ ImGui::CalcTextSize("##username").y);
-    //if (ImGui::Button("##Username", buttonSize))
-    //    for (int i = 0; i < 22; i++)
-    //        ubuf[i] = '\0';
-    
+    //ImGui::PushItemWidth(20*size);
+    //ImGui::SetItemAllowOverlap();
+    //ImGui::InputText("##username", ubuf, IM_ARRAYSIZE(ubuf), ImGuiInputTextFlags_AutoSelectAll);
+    ////ImGui::SetCursorPosX(middle.x);
+    //// ImGui::SetCursorPosY(middle.y+ImGui::CalcTextSize("username").y*0.8+ ImGui::CalcTextSize("##username").y);
+    ////if (ImGui::Button("##Username", buttonSize))
+    ////    for (int i = 0; i < 22; i++)
+    ////        ubuf[i] = '\0';
+    //
 
 
 
-    //password
-    ImGui::SetCursorPosX(middle.x);
-    ImGui::LabelText("", "password");
-    ImGui::SetCursorPosX(middle.x);
-    ImGui::PushItemWidth(20 * size);
-    ImGui::InputText("##password", pbuf, IM_ARRAYSIZE(pbuf), ImGuiInputTextFlags_AutoSelectAll);
+    ////password
+    //ImGui::SetCursorPosX(middle.x);
+    //ImGui::LabelText("", "password");
+    //ImGui::SetCursorPosX(middle.x);
+    //ImGui::PushItemWidth(20 * size);
+    //ImGui::InputText("##password", pbuf, IM_ARRAYSIZE(pbuf), ImGuiInputTextFlags_AutoSelectAll);
 
-    //log in button
-    ImGui::SetCursorPosX(middle.x);
-    ImVec2 tempbuttonSize(20 * size,2*size);
-    ImGui::Button("LogIn",tempbuttonSize);
-    ImGui::End();
-    
+    ////log in button
+    //ImGui::SetCursorPosX(middle.x);
+    //ImVec2 tempbuttonSize(20 * size,2*size);
+    //ImGui::Button("LogIn",tempbuttonSize);
+    //ImGui::End();
+    //
 
 
-    
-    
-    
-    
-    
-    
-    
+    //
+    //
+    //
+    //
+    //
+    //
+    //
     
     
     
@@ -217,7 +218,7 @@ void GUI::loginmenu()
     //    ImGui::End();
   
 }
-bool GUI::createButton(const char* text, float x, float y, float posx, float posy)
+bool GUI::createButton(const char* text, int x, int y, int posx, int posy)
 {
     buttonSize.x = x;
     buttonSize.y = y;
@@ -244,4 +245,18 @@ bool GUI::createButton(const char* text, float x, float y, float posx, float pos
     ImGui::End();
 
     return false;
+}
+
+sf::Text GUI::createText(const std::string& inputtext, const sf::Font& font, unsigned int charsize, float posY, float posX )
+{
+    sf::Text text;
+    text.setString(inputtext);
+    text.setFont(font);
+    text.setCharacterSize(charsize);
+    if (posX == 0)
+        text.setPosition((float)this->window->getSize().x / 2 - text.getGlobalBounds().width / 2, posY);
+    else
+        text.setPosition(posX, posY);
+
+    return text;
 }

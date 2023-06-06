@@ -17,7 +17,7 @@ protected:
 	virtual void initSprite();
 	virtual void initTexture();
 public:
-	Block() { setColor(); };
+	Block() {};
 	virtual ~Block() { };
 	virtual void setHealth(int health) { this->health = health; };
 	virtual std::vector<float> getSpritePosition();
@@ -38,7 +38,7 @@ class BlockYellow :public Block
 private:
 	static int counter;
 public:
-	BlockYellow();
+	BlockYellow(int health=90);
 	~BlockYellow() { counter--; };
 
 };

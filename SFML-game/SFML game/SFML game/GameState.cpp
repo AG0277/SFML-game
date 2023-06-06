@@ -5,64 +5,52 @@ Map::Map()
 {
 	pyramid =
 	{
-"###############",
-"#g           g#",
-"#gg         gg#",
-"#ggg       ggg#",
-"#      g      #",
-"#     ggg     #",
-"#    ggggg    #",
-"#   ggggggg   #",
-"#  ggggggggg  #",
-"# ggggggggggg #",
-"#ggggggggggggg#",
-"#             #",
-"#             #",
-"#             #",
-"###############",
+"###########",
+"#         #",
+"#ohhhhhhho#",
+"#ghhhhhhhg#",
+"#ghooooohg#",
+"#ghhhhhhhg#",
+"#ooooooooo#",
+"#         #",
+"#         #",
+"#         #",
+"##########",
 	};
 
 	kite =
 	{
-"###############",
-"#             #",
-"#      g      #",
-"#     g g     #",
-"#    g g g    #",
-"#   g g g g   #",
-"#  g g g g g  #",
-"#   g g g g   #",
-"#    g g g    #",
-"#     g g     #",
-"#      g      #",
-"#             #",
-"#             #",
-"#             #",
-"###############",
+"##########",
+"#         #",
+"#o   g   o#",
+"#o   g   o#",
+"#o   g   o#",
+"#o   g   o#",
+"#o   g   o#",
+"#         #",
+"#         #",
+"#         #",
+"##########",
 	};
 	labirynth =
 	{
-"###############",
-"#ggggggggggggg#",
-"#g           g#",
-"#g ggggggggg g#",
-"#g g       g g#",
-"#g g ggggg g g#",
-"#g g ggggg g g#",
-"#g g       g g#",
-"#g ggggggggg g#",
-"#g           g#",
-"#ggggggggggggg#",
-"#             #",
-"#             #",
-"#             #",
-"###############",
+"###########",
+"#         #",
+"#ooooooooo#",
+"#ghhhhhhhg#",
+"#ghohohohg#",
+"#ghhhhhhhg#",
+"#ooooooooo#",
+"#         #",
+"#         #",
+"#         #",
+"##########",
 	};
 	numberOfBlocksSpawned = 2;
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distr(0, 3);
-	random_number = 3;// distr(gen);
+	random_number =  distr(gen);
 	if (random_number == 3)
 	{
 		std::string temp = "         ";
@@ -98,11 +86,21 @@ void GameState::initBlocks()
 				this->block.push_back(new BlockYellow);
 				this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (k - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height * j);
 			}
+			else if (map.at(j).at(k) == 'h')
+			{
+				this->block.push_back(new BlockYellow(1));
+				this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (k - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height * j);
+			}
+			else if (map.at(j).at(k) == 'o')
+			{
+				this->block.push_back(new BlockYellow(30));
+				this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (k - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height * j);
+			}
 		}
 	}
-	this->block.push_back(new BlockYellow);
-	this->block.at(block.size()-1)->getSprite()->setPosition(200, 700);
-	this->block.at(block.size() - 1)->setHealth(1);
+	//this->block.push_back(new BlockYellow);
+	//this->block.at(block.size()-1)->getSprite()->setPosition(200, 700);
+	//this->block.at(block.size() - 1)->setHealth(1);
 	blocksAmountPerRow = this->window->getSize().x / block.at(0)->getSprite()->getGlobalBounds().width;
 }
 
@@ -174,7 +172,7 @@ void GameState::fireBalls()
 
 std::vector<int> GameState::randomNumbers()
 {
-	if (numberOfBlocksSpawned < 10)
+	if (numberOfBlocksSpawned < 7.5)
 		numberOfBlocksSpawned = numberOfBlocksSpawned + 0.4;
 	std::vector<int> nums(blocksAmountPerRow);
 	std::iota(nums.begin(), nums.end(), 1);
@@ -190,7 +188,7 @@ void GameState::addBlocks()
 	for (int i = 0; i < temp.size(); i++)
 	{
 		this->block.push_back(new BlockYellow);
-		this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (temp.at(i) - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height);
+		this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (temp.at(i) - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height*2);
 	}
 }
 
@@ -323,8 +321,6 @@ void GameState::collisionManager(const float& deltaTime)
 	{
 		gameON = false;
 		DidYouWin = true;
-		std::string temp = "krzysiu";
-		writeScore(points,temp);
 		this->endState();
 		this->states->push(new PauseGameState(window, videoMode, states));
 	}
@@ -335,8 +331,6 @@ void GameState::collisionManager(const float& deltaTime)
 		{
 			DidYouWin = false;
 			gameON = false;
-			std::string temp = "malina";
-			writeScore(points, temp);
 			this->endState();
 			this->states->push(new PauseGameState(window, videoMode, states));
 		}

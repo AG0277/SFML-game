@@ -11,7 +11,7 @@ States::States(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<Sta
 	this->window = window;
 	this->videoMode = videoMode;
 	this->quitState = false;
-	this->gui = new GUI;
+	this->gui = new GUI(window);
 }
 
 States::~States()
@@ -24,7 +24,7 @@ bool States::getQuit()
 	return this->quitState;
 }
 
-void States::writeScore(int score, std::string& name)
+void States::writeScore(int score, const std::string& name)
 {
 	std::ofstream scoreFile("Score.txt", std::ios::app);
 	if (scoreFile.is_open())

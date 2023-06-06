@@ -4,6 +4,7 @@
 
 int BlockBlue::counter = 0;
 int BlockYellow::counter = 0;
+
 void Block::updateHit()
 {
 	this->health -= 1;
@@ -71,7 +72,7 @@ int Block::getPoints()
 }
 
 
-BlockYellow::BlockYellow()
+BlockYellow::BlockYellow(int health)
 	:Block()
 {
 	initTexture();
@@ -80,8 +81,9 @@ BlockYellow::BlockYellow()
 	pair.second = 100;
 	pair = std::make_pair(pair.first + this->sprite.getGlobalBounds().width * counter, pair.second );
 	counter++;
-	this->health = 90;
+	this->health = health;
 	this->points = health;
+	setColor();
 }
 
 BlockBlue::BlockBlue()

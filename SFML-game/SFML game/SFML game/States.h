@@ -37,7 +37,7 @@ public:
 
 	virtual void setEvent(sf::Event& event) {};
 	bool getQuit();
-	void writeScore(int score, std::string& name);
+	void writeScore(int score, const std::string& name);
 	void endState() { this->quitState = true; };
 	virtual	void update(const float& deltaTime, sf::Time& dt) = 0;
 	virtual void render(sf::RenderTarget* target) = 0;
