@@ -2,7 +2,6 @@
 #include <vector>
 #include <stack>
 #include <SFML/Graphics.hpp>
-#include "Player.h"
 #include "Ball.h"
 #include "Block.h"
 #include "CollisionManager.h"

@@ -23,7 +23,6 @@ struct Map
 class GameState :public States
 {
 private:
-	Player* player;
 	std::vector<Block*> block;
 	std::vector<Ball*> ball;
 	int ballsCounter;
@@ -45,7 +44,6 @@ private:
 	// private initlializers
 
 	void initBlocks();
-	void initPlayer();
 	void initBall();
 	void initBackground();
 	void initFont();

@@ -98,15 +98,7 @@ void GameState::initBlocks()
 			}
 		}
 	}
-	//this->block.push_back(new BlockYellow);
-	//this->block.at(block.size()-1)->getSprite()->setPosition(200, 700);
-	//this->block.at(block.size() - 1)->setHealth(1);
 	blocksAmountPerRow = this->window->getSize().x / block.at(0)->getSprite()->getGlobalBounds().width;
-}
-
-void GameState::initPlayer()
-{
-	this->player = new Player(videoMode);
 }
 
 void GameState::initBall()
@@ -140,7 +132,6 @@ GameState::GameState(sf::RenderWindow* window, sf::VideoMode videoMode, std::sta
 	initBlocks();
 	collision = CollisionManager();
 	initBackground();
-	initPlayer();
 	initBall();
 	initFont();
 	colisionON = true;
@@ -153,7 +144,6 @@ GameState::GameState(sf::RenderWindow* window, sf::VideoMode videoMode, std::sta
 
 GameState::~GameState()
 {
-	delete this->player;
 	for (auto* ball : ball)
 		delete ball;
 	for (auto* block : block)

@@ -165,7 +165,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="PauseGameState.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="States.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +186,6 @@
     <ClInclude Include="LeaderboardState.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="PauseGameState.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="States.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
