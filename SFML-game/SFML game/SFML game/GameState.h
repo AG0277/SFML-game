@@ -23,7 +23,6 @@ struct Map
 class GameState :public States
 {
 private:
-	// Game member classes
 	Player* player;
 	std::vector<Block*> block;
 	std::vector<Ball*> ball;
@@ -42,6 +41,7 @@ private:
 	sf::Vector2i NewBallPosition;
 	std::vector<std::string> map;
 	int blocksAmountPerRow;
+	int howManyBalls;
 	// private initlializers
 
 	void initBlocks();
@@ -62,7 +62,6 @@ public:
 	void addBlocks();
 	void changeGameBoard();
 	void collisionManager(const float& deltaTime);
-	void updatePlayerPosition();
 	void updateBallPosition(const float& deltaTime);
 	void updateBlock();
 	void updateFiredBalls(const float& deltaTime);

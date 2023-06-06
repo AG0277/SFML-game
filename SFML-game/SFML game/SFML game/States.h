@@ -1,5 +1,5 @@
 #pragma once
-#include<vector>
+#include <vector>
 #include <stack>
 #include <SFML/Graphics.hpp>
 #include "Player.h"
@@ -9,6 +9,10 @@
 #include <map>
 #include "GUI.h"
 #include <stdlib.h>
+#include <fstream>
+#include <regex>
+#include <queue>
+#include <algorithm>
 
 class States
 {
@@ -23,8 +27,9 @@ protected:
 	sf::Texture worldBackgroundTexture;
 	sf::Sprite worldBackgroud;
 	GUI* gui;
-	int points;
-	bool* DidYouWin;
+	static int points;
+	static bool DidYouWin;
+	static bool gameON;
 
 public:
 	States(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<States*>* states);
@@ -32,8 +37,8 @@ public:
 
 	virtual void setEvent(sf::Event& event) {};
 	bool getQuit();
+	void writeScore(int score, std::string& name);
 	void endState() { this->quitState = true; };
-	void setWin(bool answer) { bool decision=answer; this->DidYouWin = &decision; };
 	virtual	void update(const float& deltaTime, sf::Time& dt) = 0;
 	virtual void render(sf::RenderTarget* target) = 0;
 };

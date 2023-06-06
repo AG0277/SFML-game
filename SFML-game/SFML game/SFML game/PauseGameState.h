@@ -1,6 +1,7 @@
 #pragma once
 #include "States.h"
 #include "MainMenu.h"
+#include "LeaderboardState.h"
 
 class PauseGameState :public States
 {
@@ -18,7 +19,8 @@ public:
 	void setEvent(sf::Event& event);
 	void update(const float& deltaTime, sf::Time& dt);
 	void render(sf::RenderTarget* target);
-	void imgui();
+	void imguiGameON(); // show gui when game is on ( player didnt lose or win, keeps playing)
+	void imguiGameOFF();
 };
 
 

@@ -34,7 +34,10 @@ void MainMenu::imgui()
 		
 		this->states->push(new GameState(this->window, this->videoMode, this->states));
 	}
-	gui->createButton("Leaderboard", buttonx, buttony, x - buttonx / 2, y + buttony);
+
+	if(gui->createButton("Leaderboard", buttonx, buttony, x - buttonx / 2, y + buttony))
+		this->states->push(new LeaderboardState(this->window, this->videoMode, this->states));
+
 	if (gui->createButton("Exit", buttonx, buttony, x - buttonx / 2, y + buttony * 2))
 		endState();
 }

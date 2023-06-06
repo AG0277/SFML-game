@@ -19,6 +19,7 @@ protected:
 public:
 	Block() { setColor(); };
 	virtual ~Block() { };
+	virtual void setHealth(int health) { this->health = health; };
 	virtual std::vector<float> getSpritePosition();
 	virtual bool update();
 	virtual void updateHit();

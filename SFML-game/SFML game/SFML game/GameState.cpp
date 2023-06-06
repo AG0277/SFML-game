@@ -100,6 +100,9 @@ void GameState::initBlocks()
 			}
 		}
 	}
+	this->block.push_back(new BlockYellow);
+	this->block.at(block.size()-1)->getSprite()->setPosition(200, 700);
+	this->block.at(block.size() - 1)->setHealth(1);
 	blocksAmountPerRow = this->window->getSize().x / block.at(0)->getSprite()->getGlobalBounds().width;
 }
 
@@ -145,7 +148,9 @@ GameState::GameState(sf::RenderWindow* window, sf::VideoMode videoMode, std::sta
 	colisionON = true;
 	canModify = true;
 	numberOfBlocksSpawned = 4;
-	DidYouWin = nullptr;
+	DidYouWin = false;
+	gameON = true;
+	howManyBalls = 91;
 }
 
 GameState::~GameState()
@@ -219,10 +224,6 @@ void GameState::setEvent(sf::Event& event)
 	}
 }
 
-void GameState::updatePlayerPosition()
-{
-
-}
 
 void GameState::updateBallPosition(const float& deltaTime)
 {
@@ -240,7 +241,7 @@ void GameState::updateBlock()
 	{
 		if (!block->update())
 		{
-			points=block->getPoints();
+			points+=block->getPoints();
 			this->block.erase(this->block.begin() + counter);
 		}
 		++counter;
@@ -255,7 +256,7 @@ void GameState::updateFiredBalls(const float& deltaTime)
 	this->dt = (dt + temp);
 	if (dt > 100)
 	{
-		if (ballsPushed > 0 && ballsPushed < 30 && canModify == false)
+		if (ballsPushed > 0 && ballsPushed < howManyBalls && canModify == false)
 		{
 
 			fireBalls();
@@ -319,14 +320,25 @@ void GameState::collisionManager(const float& deltaTime)
 	}
 
 	if (block.size() <= 0)
-		std::cout << "asd";
+	{
+		gameON = false;
+		DidYouWin = true;
+		std::string temp = "krzysiu";
+		writeScore(points,temp);
+		this->endState();
+		this->states->push(new PauseGameState(window, videoMode, states));
+	}
 
 	for (auto block : block)
 	{
 		if (collision.handleBackground_BlockCollisions(*block, worldBackgroud))
 		{
-			setWin(false);
+			DidYouWin = false;
+			gameON = false;
+			std::string temp = "malina";
+			writeScore(points, temp);
 			this->endState();
+			this->states->push(new PauseGameState(window, videoMode, states));
 		}
 	}
 }
@@ -349,7 +361,6 @@ void GameState::update(const float& deltaTime, sf::Time& dt)
 	this->updateGUI();
 	this->collisionManager(deltaTime);
 	this->updateBlock();
-	this->updatePlayerPosition();
 	this->updateBallPosition(deltaTime);
 	this->updateFiredBalls(deltaTime);
 }
