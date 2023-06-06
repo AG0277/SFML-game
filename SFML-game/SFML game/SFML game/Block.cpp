@@ -59,11 +59,19 @@ void Block::setColor()
 	else if (this->health >= 20 && this->health < 40)
 		this->sprite.setColor(sf::Color(250, 0, 0, 255));
 	else if (this->health >= 40 && this->health < 60)
-		this->sprite.setColor(sf::Color(0, 0, 250, 255));
+		this->sprite.setColor(sf::Color(250, 255, 16, 255));
 	else if (this->health >= 60 && this->health < 80)
-		this->sprite.setColor(sf::Color(211, 37, 255, 255));
+		this->sprite.setColor(sf::Color(100, 250, 0, 255));
 	else if (this->health >= 80 && this->health < 100)
-		this->sprite.setColor(sf::Color(100, 37, 100, 255));
+		this->sprite.setColor(sf::Color(73, 255, 213, 255));
+	else if (this->health >= 80 && this->health < 100)
+		this->sprite.setColor(sf::Color(73, 121, 255, 255));
+	else if (this->health >= 80 && this->health < 100)
+		this->sprite.setColor(sf::Color(140, 73, 213, 255));
+	else if (this->health >= 80 && this->health < 100)
+		this->sprite.setColor(sf::Color(201, 73, 255, 255));
+	else if (this->health >= 80 && this->health < 100)
+		this->sprite.setColor(sf::Color(255, 73, 250, 255));
 }
 
 int Block::getPoints()
