@@ -46,7 +46,7 @@ Map::Map()
 "#         #",
 "##########",
 	};
-	numberOfBlocksSpawned = 2;
+
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distr(0, 3);
@@ -117,6 +117,7 @@ void GameState::initBackground()
 		std::cout << "ERROR::FAILED TO LOAD TEXTURE frame\n";
 	this->framebackground.setTexture(framebackgroundtex);
 }
+
 void GameState::initFont()
 {
 	if (!font.loadFromFile("font/arial.ttf"))
@@ -149,7 +150,6 @@ GameState::~GameState()
 	for (auto* block : block)
 		delete block;
 }
-
 
 void GameState::fireBalls()
 {
@@ -211,7 +211,6 @@ void GameState::setEvent(sf::Event& event)
 		fireBalls();
 	}
 }
-
 
 void GameState::updateBallPosition(const float& deltaTime)
 {
@@ -301,6 +300,7 @@ void GameState::collisionManager(const float& deltaTime)
 					ballsPushed = 0;
 					colisionON = true;
 					collision.setnewPos();
+					howManyBalls = 1;
 				}
 			}
 		}
@@ -315,7 +315,7 @@ void GameState::collisionManager(const float& deltaTime)
 		this->states->push(new PauseGameState(window, videoMode, states));
 	}
 
-	for (auto block : block)
+	for (const auto &block : block)
 	{
 		if (collision.handleBackground_BlockCollisions(*block, worldBackgroud))
 		{
@@ -331,7 +331,9 @@ void GameState::updateGUI()
 {
 	if (this->gui->createButton("PULL BALLS", 200, 100, this->window->getSize().x/2-100, this->window->getSize().y -102))
 	{
+		
 		colisionON = false;
+		howManyBalls = 0;
 		for (int i = 0; i < ball.size(); i++)
 		{
 			ball.at(i)->directions(400, 800);

@@ -7,19 +7,22 @@ bool CollisionManager::handleCollisions(Ball& ball, Block& block, bool& changeX,
     bool checkX = false;
     bool checkY = false;
     float radius = 0;
-        //ball.getSprite().getGlobalBounds().width / 2;
+    float ballRad = ball.getSprite().getGlobalBounds().width / 2;
+
     if(block.getSprite()->getGlobalBounds().intersects(ball.getSprite().getGlobalBounds()))
     { 
         if (check_collision(ball.getSprite(), *block.getSprite()))
         {
             if (ball.getSprite().getPosition().y + radius >= block.getSpritePosition().at(1) + block.getSpritePosition().at(3) || ball.getSprite().getPosition().y - radius <= block.getSpritePosition().at(1))
             {
+                ball.setPosition(ball.getSprite().getPosition().x-ball.getDirections().x*10, ball.getSprite().getPosition().y - ball.getDirections().y * 10);
                 changeY = true;
                 checkX = true;
 
             }
             if (ball.getSprite().getPosition().x + radius >= block.getSpritePosition().at(0) + block.getSpritePosition().at(2) || ball.getSprite().getPosition().x - radius <= block.getSpritePosition().at(0))
             {
+                ball.setPosition(ball.getSprite().getPosition().x - ball.getDirections().x * 10, ball.getSprite().getPosition().y - ball.getDirections().y * 10);
                 changeX = true;
                 checkY = true;
             }
@@ -29,9 +32,6 @@ bool CollisionManager::handleCollisions(Ball& ball, Block& block, bool& changeX,
             }
         }
     }
-
-
-    
     return false;
 }
 

@@ -18,6 +18,7 @@ public:
 	Ball(sf::VideoMode videoMode, sf::Vector2i newPos);
 	~Ball();
 
+	sf::Vector2f getDirections() { return this->direction; };
 	sf::Sprite getSprite() { return this->sprite; };
 	void setPosition(int x, int y);
 	void directions(int x, int y);

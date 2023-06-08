@@ -10,7 +10,7 @@ void Game::initWindow()
 	this->window->setVerticalSyncEnabled(false);
 	ImGui::SFML::Init(*window);
 	window->setKeyRepeatEnabled(false);
-	this->window->setFramerateLimit(120);
+	this->window->setFramerateLimit(20);
 }
 
 void Game::initStates()

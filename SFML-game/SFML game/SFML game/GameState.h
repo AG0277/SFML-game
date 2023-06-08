@@ -15,7 +15,6 @@ struct Map
 	std::vector<std::string> random;
 	std::vector<std::vector<std::string>*> map;
 	int random_number;
-	float numberOfBlocksSpawned;
 	Map();
 
 };
