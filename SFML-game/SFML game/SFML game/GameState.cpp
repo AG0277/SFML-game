@@ -47,19 +47,25 @@ Map::Map()
 "##########",
 	};
 
+	random =
+	{
+"###########",
+"#         #",
+"#ggg     g#",
+"#         #",
+"#ggg      #",
+"#         #",
+"#         #",
+"#         #",
+"#         #",
+"#         #",
+"##########",
+	};
+
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distr(0, 3);
 	random_number =  distr(gen);
-	if (random_number == 3)
-	{
-		std::string temp = "         ";
-		for (int j = 0; j < 9; j++)
-			random.push_back(temp);
-
-		for (int k = 1; k < 4; k++)
-			random.at(2).at(k) = 'g';
-	}
 
 	map.push_back(&pyramid);
 	map.push_back(&kite);
@@ -140,7 +146,9 @@ GameState::GameState(sf::RenderWindow* window, sf::VideoMode videoMode, std::sta
 	numberOfBlocksSpawned = 4;
 	DidYouWin = false;
 	gameON = true;
-	howManyBalls = 91;
+	howManyBalls = 90;
+	gameDifficulty = 10;
+	gameLevel = 0.8;
 }
 
 GameState::~GameState()
@@ -163,7 +171,12 @@ void GameState::fireBalls()
 std::vector<int> GameState::randomNumbers()
 {
 	if (numberOfBlocksSpawned < 7.5)
-		numberOfBlocksSpawned = numberOfBlocksSpawned + 0.4;
+		numberOfBlocksSpawned = numberOfBlocksSpawned +1;
+	else
+	{
+		numberOfBlocksSpawned = 3;
+		gameDifficulty += 10;
+	}
 	std::vector<int> nums(blocksAmountPerRow);
 	std::iota(nums.begin(), nums.end(), 1);
 	std::mt19937 gen(std::random_device{}());
@@ -174,10 +187,11 @@ std::vector<int> GameState::randomNumbers()
 
 void GameState::addBlocks()
 {
+	float temp1 = 8;
 	std::vector<int> temp = randomNumbers();
 	for (int i = 0; i < temp.size(); i++)
 	{
-		this->block.push_back(new BlockYellow);
+		this->block.push_back(new BlockYellow(gameDifficulty+std::floor(temp1*gameLevel)*10));
 		this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (temp.at(i) - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height*2);
 	}
 }
@@ -259,18 +273,21 @@ void GameState::collisionManager(const float& deltaTime)
 
 	for (auto ball : ball)
 	{
-		bool doublecolision = false;
+		bool doublecollision = false;
 		if (colisionON == true)
 			for (int j = 0; j < block.size(); j++)
 			{
 				bool changeX = false;
 				bool changeY = false;
-				if (this->collision.handleCollisions(*ball, *block.at(j), changeX, changeY))
+				if (this->collision.handleCollisions(*ball, *block.at(j), changeX, changeY) && !ball->gethasBeenHit())
 				{
-					if (doublecolision == false)
+					if (doublecollision == false)
+					{
 						ball->updateDirection(changeX, changeY);
+						ball->sethasBeenHit(true);
+					}
 					block.at(j)->updateHit();
-					doublecolision = true;
+					doublecollision = true;
 				}
 			}
 		bool changeX = false;
@@ -300,7 +317,7 @@ void GameState::collisionManager(const float& deltaTime)
 					ballsPushed = 0;
 					colisionON = true;
 					collision.setnewPos();
-					howManyBalls = 1;
+					howManyBalls = 90;
 				}
 			}
 		}

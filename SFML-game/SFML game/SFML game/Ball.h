@@ -12,12 +12,19 @@ private:
 	float speed;
 	sf::Vector2f direction;
 
+	int dt;
+	int frameHitRefresh;
+	bool hasBeenHit;
+
 	void initSprite();
 	void initTexture();
+	void intervalBetweenCollisions();
 public:
 	Ball(sf::VideoMode videoMode, sf::Vector2i newPos);
 	~Ball();
 
+	void sethasBeenHit(bool hasBeenHit) { this->hasBeenHit = hasBeenHit; };
+	bool gethasBeenHit() { return this->hasBeenHit; }
 	sf::Vector2f getDirections() { return this->direction; };
 	sf::Sprite getSprite() { return this->sprite; };
 	void setPosition(int x, int y);

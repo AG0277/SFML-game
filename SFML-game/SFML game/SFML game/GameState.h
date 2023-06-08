@@ -40,6 +40,8 @@ private:
 	std::vector<std::string> map;
 	int blocksAmountPerRow;
 	int howManyBalls;
+	float gameLevel;
+	int gameDifficulty;
 	// private initlializers
 
 	void initBlocks();

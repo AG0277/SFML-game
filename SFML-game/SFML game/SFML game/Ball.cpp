@@ -18,6 +18,9 @@ Ball::Ball(sf::VideoMode videoMode, sf::Vector2i newPos)
 	initSprite();
 	this->sprite.setPosition(newPos.x, newPos.y);
 	this->speed = videoMode.width/100;
+	frameHitRefresh = 1;
+	dt = 0;
+	hasBeenHit = false;
 }
 
 Ball::~Ball()
@@ -46,6 +49,16 @@ void Ball::updateDirection( bool& changeX, bool& changeY)
 		direction.y = -direction.y;
 }
 
+void Ball::intervalBetweenCollisions()
+{
+	this->dt += frameHitRefresh;
+	if (dt > 2)
+	{
+		hasBeenHit = false;
+		dt = 0;
+	}
+}
+
 void Ball::render(sf::RenderTarget* target)
 {
 	target->draw(this->sprite);
@@ -53,9 +66,9 @@ void Ball::render(sf::RenderTarget* target)
 
 void Ball::update(const float& dt)
 {
-
+	if (hasBeenHit)
+		this->intervalBetweenCollisions();
 	this->sprite.move(direction.x * this->speed*dt, direction.y * this->speed*dt);
-
 }
 
 
