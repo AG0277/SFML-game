@@ -3,6 +3,7 @@
 int States::points = 0;
 bool States::DidYouWin = false;
 bool States::gameON = false;
+float States::gameLevel=1;
 
 
 States::States(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<States*>* states)

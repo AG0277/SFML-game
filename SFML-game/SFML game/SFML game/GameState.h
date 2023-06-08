@@ -40,7 +40,6 @@ private:
 	std::vector<std::string> map;
 	int blocksAmountPerRow;
 	int howManyBalls;
-	float gameLevel;
 	int gameDifficulty;
 	// private initlializers
 
@@ -61,6 +60,7 @@ public:
 	void addBlocks();
 	void changeGameBoard();
 	void collisionManager(const float& deltaTime);
+	void displayTextOnBlocks(Block* block);
 	void updateBallPosition(const float& deltaTime);
 	void updateBlock();
 	void updateFiredBalls(const float& deltaTime);

@@ -29,6 +29,7 @@ protected:
 	static int points;
 	static bool DidYouWin;
 	static bool gameON;
+	static float gameLevel;
 
 public:
 	States(sf::RenderWindow* window, sf::VideoMode videoMode, std::stack<States*>* states);

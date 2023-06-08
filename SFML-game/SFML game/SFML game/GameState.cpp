@@ -89,7 +89,7 @@ void GameState::initBlocks()
 		{
 			if (map.at(j).at(k) == 'g')
 			{
-				this->block.push_back(new BlockYellow);
+				this->block.push_back(new BlockYellow(gameDifficulty + std::floor(8.0 * gameLevel) * 10));
 				this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (k - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height * j);
 			}
 			else if (map.at(j).at(k) == 'h')
@@ -99,7 +99,7 @@ void GameState::initBlocks()
 			}
 			else if (map.at(j).at(k) == 'o')
 			{
-				this->block.push_back(new BlockYellow(30));
+				this->block.push_back(new BlockYellow(gameDifficulty + std::floor(3.0 * gameLevel) * 10));
 				this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (k - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height * j);
 			}
 		}
@@ -148,7 +148,6 @@ GameState::GameState(sf::RenderWindow* window, sf::VideoMode videoMode, std::sta
 	gameON = true;
 	howManyBalls = 90;
 	gameDifficulty = 10;
-	gameLevel = 0.8;
 }
 
 GameState::~GameState()
@@ -170,7 +169,7 @@ void GameState::fireBalls()
 
 std::vector<int> GameState::randomNumbers()
 {
-	if (numberOfBlocksSpawned < 7.5)
+	if (numberOfBlocksSpawned < 7)
 		numberOfBlocksSpawned = numberOfBlocksSpawned +1;
 	else
 	{
@@ -191,7 +190,7 @@ void GameState::addBlocks()
 	std::vector<int> temp = randomNumbers();
 	for (int i = 0; i < temp.size(); i++)
 	{
-		this->block.push_back(new BlockYellow(gameDifficulty+std::floor(temp1*gameLevel)*10));
+		this->block.push_back(new BlockYellow(gameDifficulty+std::floor(8.0*gameLevel)*10));
 		this->block.at(this->block.size() - 1)->getSprite()->setPosition(this->block.at(0)->getSprite()->getGlobalBounds().width * (temp.at(i) - 1) + 8, this->block.at(0)->getSprite()->getGlobalBounds().height*2);
 	}
 }
@@ -237,15 +236,21 @@ void GameState::updateBallPosition(const float& deltaTime)
 
 void GameState::updateBlock()
 {
-	int counter = 0;
+	std::vector<int> eraseBallAt;
+	int counter=0;
 	for (auto* block : block)
 	{
 		if (!block->update())
 		{
 			points+=block->getPoints();
-			this->block.erase(this->block.begin() + counter);
+			eraseBallAt.push_back(counter);
 		}
 		++counter;
+	}
+
+	for (int i=0;i<eraseBallAt.size();i++)
+	{
+		this->block.erase(this->block.begin() + eraseBallAt.at(i));
 	}
 
 }
@@ -344,6 +349,15 @@ void GameState::collisionManager(const float& deltaTime)
 	}
 }
 
+void GameState::displayTextOnBlocks(Block* block)
+{
+	text.setString(std::to_string(block->getHealth()));
+	if (block->getHealth() < 100)
+		text.setPosition(block->getSprite()->getGlobalBounds().left + block->getSprite()->getGlobalBounds().width / 4, block->getSprite()->getGlobalBounds().top + block->getSprite()->getGlobalBounds().height / 4);
+	else
+		text.setPosition(block->getSprite()->getGlobalBounds().left + block->getSprite()->getGlobalBounds().width *0.15, block->getSprite()->getGlobalBounds().top + block->getSprite()->getGlobalBounds().height /4);
+}
+
 void GameState::updateGUI()
 {
 	if (this->gui->createButton("PULL BALLS", 200, 100, this->window->getSize().x/2-100, this->window->getSize().y -102))
@@ -372,15 +386,13 @@ void GameState::render(sf::RenderTarget* target)
 {
 	window->draw(this->worldBackgroud);
 	window->draw(this->framebackground);
-	for (auto* ball : ball)
+	for (const auto& ball : ball)
 		ball->render(this->window);
-	for (auto* block : block)
+	for (const auto& block : block)
 	{
 		block->render(this->window);
-		text.setString(std::to_string(block->getHealth()));
-		text.setPosition(block->getSprite()->getGlobalBounds().left + block->getSprite()->getGlobalBounds().width / 4, block->getSprite()->getGlobalBounds().top + block->getSprite()->getGlobalBounds().height / 4);
+		displayTextOnBlocks(block);
 		window->draw(text);
-
 	}
 
 	ImGui::SFML::Render(*window);

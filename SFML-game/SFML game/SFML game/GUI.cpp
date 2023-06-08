@@ -218,7 +218,8 @@ void GUI::loginmenu()
     //    ImGui::End();
   
 }
-bool GUI::createButton(const char* text, int x, int y, int posx, int posy)
+
+bool GUI::createButton(const char* text, int x, int y, int posx, int posy,std::vector<float> color)
 {
     buttonSize.x = x;
     buttonSize.y = y;
@@ -231,7 +232,7 @@ bool GUI::createButton(const char* text, int x, int y, int posx, int posy)
     window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
     window_flags |= ImGuiWindowFlags_NoScrollbar;
 
-    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.054, 0.054, 0.054, 255));
+    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(color.at(0), color.at(1), color.at(2), color.at(3)));
     ImGui::Begin("Button", 0, window_flags);
     ImGui::SetCursorPos(buttonPos2);
 
