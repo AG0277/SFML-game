@@ -188,9 +188,9 @@ std::vector<int> GameState::randomNumbers()
 
 void GameState::addBlocks()
 {
-	int chanceForSpwaningBall = 1;// generateNumber(1, 4);
+	int chanceForSpwaningBall =  generateNumber(1, 5);
 	std::vector<int> temp = randomNumbers();
-	int randomPositionToSwapBall=generateNumber(0, temp.size()-1);
+	int randomPositionToSwapBall=generateNumber(1, temp.size());
 	for (int i = 0; i < temp.size(); i++)
 	{
 		if (chanceForSpwaningBall != 1)
