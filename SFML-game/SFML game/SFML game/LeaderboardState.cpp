@@ -98,6 +98,7 @@ void LeaderboardState::setEvent(sf::Event& event)
 		}
 }
 
+
 void LeaderboardState::imgui()
 {
 	float x = this->window->getSize().x / 2;

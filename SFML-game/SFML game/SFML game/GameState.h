@@ -39,8 +39,10 @@ private:
 	sf::Vector2i NewBallPosition;
 	std::vector<std::string> map;
 	int blocksAmountPerRow;
+	int maxAmountOfBalls;
 	int howManyBalls;
 	int gameDifficulty;
+	std::pair<int, int> gridXandYsize;
 	// private initlializers
 
 	void initBlocks();
@@ -56,7 +58,7 @@ public:
 	// update functions
 	void setEvent(sf::Event& event);
 	std::vector<int>  randomNumbers();
-	int generateNumber();
+	int generateNumber(int first, int second);
 	void addBlocks();
 	void changeGameBoard();
 	void collisionManager(const float& deltaTime);

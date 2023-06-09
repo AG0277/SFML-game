@@ -14,7 +14,6 @@ protected:
 	int health;
 	int points;
 
-	virtual void initSprite();
 	virtual void initTexture();
 public:
 	Block() {};
@@ -25,13 +24,9 @@ public:
 	virtual void updateHit();
 	virtual void render(sf::RenderTarget* target);
 	virtual sf::Sprite* getSprite() { return &(this->sprite); };
-	virtual int getHealth() { return this->health; };
 	virtual void setColor();
 	virtual int getPoints();
-
 };
-
-
 
 class BlockYellow :public Block
 {
@@ -40,18 +35,19 @@ private:
 public:
 	BlockYellow(int health=90);
 	~BlockYellow() { counter--; };
-
+	 int getHealth() { return this->health; };
 };
 
 
-class BlockBlue :public Block
+class BlockBall :public Block
 {
 private:
 	static int counter;
-public:
-	BlockBlue();
-	~BlockBlue() { counter--; };
 
+	void initTexture();
+public:
+	BlockBall();
+	~BlockBall() { counter--; };
 };
 
 

@@ -46,11 +46,18 @@ PauseGameState::PauseGameState(sf::RenderWindow* window, sf::VideoMode videoMode
 
 void PauseGameState::setEvent(sf::Event& event)
 {
-	if (event.type == sf::Event::KeyPressed && gameON==true)
+	if (event.type == sf::Event::KeyPressed && gameON == true)
 	{
 		if (event.key.code == sf::Keyboard::Escape)
 		{
 			endState();
+		}
+	}
+	else if (event.type == sf::Event::KeyPressed && gameON == false)
+	{
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			YesNoInput = true;
 		}
 	}
 
@@ -96,6 +103,7 @@ void PauseGameState::imguiGameON()
 		{
 			states->pop();
 		}
+		points = 0;
 		this->states->push(new MainMenu(this->window, this->videoMode, this->states));
 	}
 	if (gui->createButton("Leaderboard", buttonx, buttony, x - buttonx / 2, y + buttony))
@@ -125,6 +133,7 @@ void PauseGameState::imguiGameOFF()
 			{
 				states->pop();
 			}
+			points = 0;
 			this->states->push(new MainMenu(this->window, this->videoMode, this->states));
 		}
 
@@ -154,7 +163,8 @@ void PauseGameState::render(sf::RenderTarget* target)
 	window->draw(this->worldBackgroud);
 	window->draw(this->text);
 	window->draw(this->winorlosetext);
-	window->draw(this->playerText);
+	if (!YesNoInput)
+		window->draw(this->playerText);
 	if (YesNoInput)
 		window->draw(this->playerDecision);
 	ImGui::SFML::Render(*window);
