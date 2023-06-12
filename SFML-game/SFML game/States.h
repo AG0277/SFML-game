@@ -1,17 +1,4 @@
 #pragma once
-#include <vector>
-#include <stack>
-#include <SFML/Graphics.hpp>
-#include "Ball.h"
-#include "Block.h"
-#include "CollisionManager.h"
-#include <map>
-#include "GUI.h"
-#include <stdlib.h>
-#include <fstream>
-#include <regex>
-#include <queue>
-#include <algorithm>
 
 class States
 {

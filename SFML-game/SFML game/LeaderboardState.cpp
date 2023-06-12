@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "LeaderboardState.h"
 
 void LeaderboardState::sort(std::vector<std::pair<std::string, int>>& scores, int howmanynumbers)

@@ -1,11 +1,5 @@
 #pragma once
-#include"States.h"
-#include "MainMenu.h"
-#include <unordered_map>
-#include <algorithm>
-#include <random>
-#include <numeric>
-#include "PauseGameState.h"
+
 
 struct Map
 {

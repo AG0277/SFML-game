@@ -1,7 +1,5 @@
 #pragma once
-#include"States.h"
-#include"GameState.h"
-#include "LeaderboardState.h"
+
 
 class MainMenu:public States
 {

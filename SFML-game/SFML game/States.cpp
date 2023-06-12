@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "States.h"
 
 int States::points = 0;

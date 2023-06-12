@@ -1,9 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include "Ball.h"
-#include "Block.h"
 
 class Block;
 class Ball;

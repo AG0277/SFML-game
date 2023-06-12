@@ -1,8 +1,7 @@
 #pragma once
-#include "GameState.h"
-#include "MainMenu.h"
 
-
+#include "imgui/imgui.h"
+#include "imgui/imgui-SFML.h"
 
 class Game
 {

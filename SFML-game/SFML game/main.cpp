@@ -1,5 +1,4 @@
-#include "Game.h"
-#include <sstream>
+#include "pch.h"
 
 int main()
 {
@@ -12,5 +11,6 @@ int main()
             game.render();
 
     }
+
     return 0;
 }
