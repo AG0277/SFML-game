@@ -88,17 +88,18 @@ void MainMenu::selectDifficulty()
 	std::vector<float> green = { 0,0.9,0,255 };
 	std::vector<float> orange = { 0.9,0.55,0,255 };
 	std::vector<float> red = { 0.9,0,0,255 };
-	if (gui->createButton("Easy", buttonx, buttony, x - buttonx / 2, y,green))
+	std::vector<float> black = { 0,0,0,255 };
+	if (gui->createButton("Easy", buttonx, buttony, x - buttonx / 2, y,green,black))
 	{
 		gameLevel = 0.8;
 		this->states->push(new GameState(this->window, this->videoMode, this->states));
 	}
-	if (gui->createButton("Medium", buttonx, buttony, x - buttonx / 2, y + buttony,orange))
+	if (gui->createButton("Medium", buttonx, buttony, x - buttonx / 2, y + buttony,orange, black))
 	{
 		gameLevel = 1;
 		this->states->push(new GameState(this->window, this->videoMode, this->states));
 	}
-	if (gui->createButton("Hard", buttonx, buttony, x - buttonx / 2, y + buttony * 2,red))
+	if (gui->createButton("Hard", buttonx, buttony, x - buttonx / 2, y + buttony * 2,red, black))
 	{
 		gameLevel = 1.2;
 		this->states->push(new GameState(this->window, this->videoMode, this->states));

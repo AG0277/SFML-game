@@ -220,7 +220,7 @@ void GUI::loginmenu()
   
 }
 
-bool GUI::createButton(const char* text, int x, int y, int posx, int posy,std::vector<float> color)
+bool GUI::createButton(const char* text, int x, int y, int posx, int posy,std::vector<float> color, std::vector<float> textColor)
 {
     buttonSize.x = x;
     buttonSize.y = y;
@@ -236,7 +236,7 @@ bool GUI::createButton(const char* text, int x, int y, int posx, int posy,std::v
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(color.at(0), color.at(1), color.at(2), color.at(3)));
     ImGui::Begin("Button", 0, window_flags);
     ImGui::SetCursorPos(buttonPos2);
-
+    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(textColor.at(0), textColor.at(1), textColor.at(2), textColor.at(3)));
     if (ImGui::Button(text,buttonSize))
     {
         ImGui::PopStyleColor();

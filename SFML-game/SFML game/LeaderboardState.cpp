@@ -4,26 +4,11 @@
 void LeaderboardState::sort(std::vector<std::pair<std::string, int>>& scores, int howmanynumbers)
 {
 	std::vector<std::pair<std::string, int>> topnumbers;
-	auto comparator = [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
-		return a.second > b.second;
-	};
+	std::ranges::sort(scores, std::greater<>{}, [](const auto& score) {
+		return score.second;});
 
-	std::priority_queue<std::pair<std::string, int>, std::vector<std::pair<std::string, int>>, decltype(comparator)> maxHeap(comparator);
-
-	for (const auto& pair : scores) {
-		maxHeap.push(pair);
-		if (maxHeap.size() > howmanynumbers) {
-			maxHeap.pop();
-		}
-	}
-
-	while (!maxHeap.empty()) {
-		topnumbers.push_back(maxHeap.top());
-		maxHeap.pop();
-	}
-
-	std::reverse(topnumbers.begin(), topnumbers.end());
-
+	topnumbers = scores;
+	topnumbers.resize(std::min(howmanynumbers, static_cast<int>(scores.size())));
 	this->displayOveralScore = topnumbers;
 }
 
@@ -31,7 +16,6 @@ void LeaderboardState::readScore()
 {
 	std::vector<std::pair<std::string, int>> scores;
 	std::string line;
-	//std::regex pattern(R"((\w+)->(\d+))");
 	std::regex pattern(R"(([\w\s]+)->(\d+))");
 	std::ifstream scoreFile("Score.txt");
 	if (scoreFile.is_open())

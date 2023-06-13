@@ -230,17 +230,13 @@ void GameState::setEvent(sf::Event& event)
 		if (event.key.code == sf::Keyboard::Escape)
 		{
 			this->states->push(new PauseGameState(window, videoMode, states));
-		}
-	if (event.type == event.MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && canModify == true)
-	{
-		//raytracing.direction(sf::Mouse::getPosition(*this->window),currentBallPos);
-
-	}
+		} 
 	if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && canModify == true)
 	{
-		mousePos = sf::Mouse::getPosition(*this->window);
-		ball.erase(ball.begin());
-		canModify = false;
+		this->mousePos = sf::Mouse::getPosition(*this->window);
+		delete this->ball.at(0);
+		this->ball.erase(ball.begin());
+		this->canModify = false;
 		fireBalls();
 	}
 }
@@ -273,6 +269,7 @@ void GameState::updateBlock()
 
 	for (int i=0;i<eraseBallAt.size();i++)
 	{
+		delete this->block.at(eraseBallAt.at(i));
 		this->block.erase(this->block.begin() + eraseBallAt.at(i));
 	}
 
@@ -333,6 +330,7 @@ void GameState::collisionManager(const float& deltaTime)
 			ball->updateDirection(changeX, changeY);
 			if (delBall == true)
 			{
+				delete this->ball.at(counter);
 				this->ball.erase(this->ball.begin() + counter);
 				counter--;
 				ballsCounter--;

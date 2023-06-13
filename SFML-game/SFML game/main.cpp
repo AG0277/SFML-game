@@ -9,7 +9,6 @@ int main()
         game.updateDeltaTime();
         if (game.update())
             game.render();
-
     }
 
     return 0;
