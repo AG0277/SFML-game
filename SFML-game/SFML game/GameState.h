@@ -37,6 +37,7 @@ private:
 	int howManyBalls;
 	int gameDifficulty;
 	std::pair<int, int> gridXandYsize;
+	sf::Texture BallTexture;
 	// private initlializers
 
 	void initBlocks();

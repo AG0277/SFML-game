@@ -13,10 +13,9 @@ private:
 	bool hasBeenHit;
 
 	void initSprite();
-	void initTexture();
 	void intervalBetweenCollisions();
 public:
-	Ball(sf::VideoMode videoMode, sf::Vector2i newPos);
+	Ball(const sf::VideoMode& videoMode, const sf::Vector2i& newPos,const sf::Texture& texture);
 	~Ball();
 
 	void sethasBeenHit(bool hasBeenHit) { this->hasBeenHit = hasBeenHit; };

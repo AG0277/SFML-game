@@ -7,15 +7,10 @@ void Ball::initSprite()
 	sprite.scale(0.02f, 0.02f);
 	sprite.setOrigin(sprite.getTexture()->getSize().x / 2, sprite.getTexture()->getSize().y / 2);
 }
-void Ball::initTexture()
-{
-	if (!this->texture.loadFromFile("Textures/ball.png"))
-		std::cout << "ERROR::FAILED TO LOAD TEXTURE BALL\n";
-}
 
-Ball::Ball(sf::VideoMode videoMode, sf::Vector2i newPos)
+Ball::Ball(const sf::VideoMode& videoMode, const sf::Vector2i& newPos, const sf::Texture& texture)
 {
-	initTexture();
+	this->texture = texture;
 	initSprite();
 	this->sprite.setPosition(newPos.x, newPos.y);
 	this->speed = videoMode.width/100;

@@ -240,9 +240,11 @@ bool GUI::createButton(const char* text, int x, int y, int posx, int posy,std::v
     if (ImGui::Button(text,buttonSize))
     {
         ImGui::PopStyleColor();
+        ImGui::PopStyleColor();
         ImGui::End();
         return true;
     }
+    ImGui::PopStyleColor();
     ImGui::PopStyleColor();
     ImGui::End();
 

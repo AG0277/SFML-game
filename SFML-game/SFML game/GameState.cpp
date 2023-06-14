@@ -113,7 +113,7 @@ void GameState::initBall()
 {
 	currentBallPos.x = videoMode.width / 2;
 	currentBallPos.y = videoMode.height * 0.98 - 100;
-	this->ball.push_back(new Ball(videoMode, currentBallPos));
+	this->ball.push_back(new Ball(videoMode, currentBallPos, BallTexture));
 }
 
 void GameState::initBackground()
@@ -124,6 +124,9 @@ void GameState::initBackground()
 	if (!this->framebackgroundtex.loadFromFile("Textures/background1.png"))
 		std::cout << "ERROR::FAILED TO LOAD TEXTURE frame\n";
 	this->framebackground.setTexture(framebackgroundtex);
+
+	if (!BallTexture.loadFromFile("Textures/ball.png"))
+		std::cout << "ERROR::FAILED TO LOAD ball frame\n";
 }
 
 void GameState::initFont()
@@ -163,7 +166,7 @@ GameState::~GameState()
 
 void GameState::fireBalls()
 {
-	this->ball.push_back(new Ball(videoMode, currentBallPos));
+	this->ball.push_back(new Ball(videoMode, currentBallPos,BallTexture));
 	ballsCounter++;
 	ballsPushed++;
 	this->ball.at(ballsCounter - 1)->directions(mousePos.x, mousePos.y);
@@ -338,7 +341,7 @@ void GameState::collisionManager(const float& deltaTime)
 				{
 					changeGameBoard();
 					this->currentBallPos = NewBallPosition;
-					this->ball.push_back(new Ball(videoMode, NewBallPosition));
+					this->ball.push_back(new Ball(videoMode, NewBallPosition, BallTexture));
 					canModify = true;
 					ballsPushed = 0;
 					colisionON = true;
