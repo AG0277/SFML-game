@@ -387,14 +387,14 @@ void GameState::displayTextOnBlocks(Block* block)
 
 void GameState::updateGUI()
 {
-	if (this->gui->createButton("PULL BALLS", 200, 100, this->window->getSize().x/2-100, this->window->getSize().y -102))
+	if (this->gui->createButton("PULL BALLS", 200, 100, this->window->getSize().x/2-100, this->window->getSize().y -102)&&canModify==false)
 	{
 		
 		colisionON = false;
 		howManyBalls = 0;
 		for (int i = 0; i < ball.size(); i++)
 		{
-			ball.at(i)->directions(400, 800);
+			ball.at(i)->directions(this->window->getSize().x/2, this->window->getSize().y);
 		}
 	}
 }

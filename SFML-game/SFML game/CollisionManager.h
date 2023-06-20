@@ -13,5 +13,5 @@ public:
     bool handleBackground_BlockCollisions(Block& block, sf::Sprite& worldbackground);
     float dot_product(const sf::Vector2f& v1, const sf::Vector2f& v2);
     sf::Vector2f perpendicular(const sf::Vector2f& v);
-    bool check_collision(sf::Sprite ball, sf::Sprite square);
+    bool check_collision(const sf::Sprite& ball, const sf::Sprite& square);
 }; 

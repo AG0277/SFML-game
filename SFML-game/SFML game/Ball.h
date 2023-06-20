@@ -18,7 +18,7 @@ public:
 	Ball(const sf::VideoMode& videoMode, const sf::Vector2i& newPos,const sf::Texture& texture);
 	~Ball();
 
-	void sethasBeenHit(bool hasBeenHit) { this->hasBeenHit = hasBeenHit; };
+	void sethasBeenHit(const bool& hasBeenHit) { this->hasBeenHit = hasBeenHit; };
 	bool gethasBeenHit() { return this->hasBeenHit; }
 	sf::Vector2f getDirections() { return this->direction; };
 	sf::Sprite getSprite() { return this->sprite; };
