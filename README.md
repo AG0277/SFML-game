@@ -7,3 +7,10 @@
  - Dear Imgui
 # <h1> Instalation </h1>
 The instalation is very simple, just clone project. All dependancies and libraries should be already set up. The process was so far tested only in Visual Studio 2019 and 2022 on windows.
+</br>
+</br>
+Main Menu :</br>
+![Main Menu](readme_img/Start.PNG)
+
+Gameplay :</br>
+![Gameplay](readme_img/gameplay.PNG)
